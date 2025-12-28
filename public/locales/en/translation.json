@@ -42,47 +42,47 @@
     "cta": "Request Concierge Help"
   },
   "requestType": {
-  "title": "What we can help with",
-  "requestTitle": "Choose request type",
-  "requestSubTitle": "What do you need help with?",
-  "selectOption": "Select one option",
-  "items": {
-    "restaurant": {
-      "title": "Restaurant Reservation",
-      "desc": "Book a table at your desired restaurant"
-    },
-    "takeout": {
-      "title": "Takeout Order",
-      "desc": "Order food for pickup"
-    },
-    "delivery": {
-      "title": "Delivery Order",
-      "desc": "Get food or items delivered to you"
-    },
-    "info": {
-      "title": "Information Check",
-      "desc": "Ask about parking, pets, hours, etc."
-    },
-    "hospital": {
-      "title": "Hospital Appointment",
-      "desc": "Schedule medical appointments or consultations"
-    },
-    "pet": {
-      "title": "Pet-friendly",
-      "desc": "Find places that allow pets"
-    },
-    "child": {
-      "title": "Child-friendly",
-      "desc": "Places with high chairs or kids menu"
-    },
-    "group": {
-      "title": "Group seating",
-      "desc": "Reservations for large groups"
-    },
-    "free": {
-      "title": "Free-form inquiry",
-      "desc": "Any other questions or special requests"
+    "title": "What we can help with",
+    "requestTitle": "Choose request type",
+    "requestSubTitle": "What do you need help with?",
+    "selectOption": "Select one option",
+    "items": {
+        "restaurant": {
+        "title": "Restaurant Reservation",
+        "desc": "Book a table at your desired restaurant"
+        },
+        "takeout": {
+        "title": "Takeout Order",
+        "desc": "Order food for pickup"
+        },
+        "delivery": {
+        "title": "Delivery Order",
+        "desc": "Get food or items delivered to you"
+        },
+        "info": {
+        "title": "Information Check",
+        "desc": "Ask about parking, pets, hours, etc."
+        },
+        "hospital": {
+        "title": "Hospital Appointment",
+        "desc": "Schedule medical appointments or consultations"
+        },
+        "pet": {
+        "title": "Pet-friendly",
+        "desc": "Find places that allow pets"
+        },
+        "child": {
+        "title": "Child-friendly",
+        "desc": "Places with high chairs or kids menu"
+        },
+        "group": {
+        "title": "Group seating",
+        "desc": "Reservations for large groups"
+        },
+        "free": {
+        "title": "Free-form inquiry",
+        "desc": "Any other questions or special requests"
+        }
     }
-  }
-}
+    }
 }
