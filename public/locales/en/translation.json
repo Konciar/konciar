@@ -46,8 +46,9 @@
     "requestTitle": "Choose request type",
     "requestSubTitle": "What do you need help with?",
     "selectOption": "Select one option",
+    "nextStep": "Next Step",
     "items": {
-      "restaurant": {
+      "reservation": {
         "title": "Restaurant Reservation",
         "desc": "Book a table at your desired restaurant"
       },
@@ -89,7 +90,8 @@
     "title": "Request details",
     "email": {
       "label": "Your email address",
-      "placeholder": "your.email@example.com"
+      "placeholder": "youremail@example.com",
+      "error": "Please enter a valid email address"
     },
     "store": {
       "label": "Restaurant / Store name",

@@ -46,8 +46,9 @@
     "requestTitle": "リクエストの種類を選択",
     "requestSubTitle": "どのようなお手伝いが必要ですか？",
     "selectOption": "項目を1つ選択してください",
+    "nextStep": "次へ",
     "items": {
-      "restaurant": {
+      "reservation": {
         "title": "レストラン予約",
         "desc": "ご希望のレストランの席を予約します"
       },
@@ -89,7 +90,8 @@
     "title": "リクエスト詳細",
     "email": {
       "label": "メールアドレス",
-      "placeholder": "your.email@example.com"
+      "placeholder": "youremail@example.com",
+      "error": "有効なメールアドレスを入力してください"
     },
     "store": {
       "label": "レストラン・店舗名",

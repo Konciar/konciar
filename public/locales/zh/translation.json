@@ -46,8 +46,9 @@
     "requestTitle": "选择请求类型",
     "requestSubTitle": "您需要什么帮助？",
     "selectOption": "请选择一个选项",
+    "nextStep": "下一步",
     "items": {
-      "restaurant": {
+      "reservation": {
         "title": "餐厅预订",
         "desc": "为您预订心仪餐厅的座位"
       },
@@ -89,7 +90,8 @@
     "title": "请求详情",
     "email": {
       "label": "您的电子邮件地址",
-      "placeholder": "your.email@example.com"
+      "placeholder": "youremail@example.com",
+      "error": "请输入有效的电子邮件地址"
     },
     "store": {
       "label": "餐厅 / 商店名称",

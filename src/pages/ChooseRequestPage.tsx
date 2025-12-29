@@ -127,7 +127,7 @@ const ChooseRequestPage = ({ t }: TOnly) => {
       {/* 하단 버튼 (선택 시 활성화) */}
       <div className="mt-auto p-4">
         <button disabled={!selected} className={`w-full py-4 rounded-xl font-bold transition-colors ${selected ? "bg-slate-900 text-white" : "bg-gray-200 text-gray-400"}`} onClick={handleNext}>
-          {selected ? "Next" : "Select an option"}
+          {selected ? t("requestType.nextStep") : t("requestType.selectOption")}
         </button>
       </div>
     </div>
