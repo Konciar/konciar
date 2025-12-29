@@ -6,6 +6,8 @@ import { TbBrandGoogleMaps } from "react-icons/tb"
 import type { TOnly } from "../types"
 import { loadGoogleMaps } from "../components/GoogleMapsLoader"
 import emailjs from "@emailjs/browser"
+import { useNavigate } from "react-router-dom"
+import toast from "react-hot-toast"
 
 const RequestDetailsPage = ({ t }: TOnly) => {
   const [requestType, setRequestType] = useState<string>("")
@@ -26,6 +28,8 @@ const RequestDetailsPage = ({ t }: TOnly) => {
       pets: false,
     },
   })
+  const [isSending, setIsSending] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     setRequestType(sessionStorage.getItem("requestType") || "")
@@ -70,7 +74,9 @@ const RequestDetailsPage = ({ t }: TOnly) => {
   }
 
   const handleSubmit = async () => {
-    if (!isFormValid()) return
+    if (!isFormValid() || isSending) return
+    setIsSending(true)
+    const loadingToast = toast.loading(t("requestDetails.sending") || "Sending request...")
 
     // 1. 체크박스에서 true인 항목만 콤마로 연결, 없으면 None
     const selectedQuestions = Object.entries(form.commonQuestions)
@@ -95,12 +101,16 @@ const RequestDetailsPage = ({ t }: TOnly) => {
       const result = await emailjs.send(import.meta.env.VITE_EMAILJS_SERVICE_ID, import.meta.env.VITE_EMAILJS_TEMPLATE_ID, templateParams, import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
 
       if (result.status === 200) {
-        alert(t("requestDetails.successMessage") || "Request sent successfully!")
-        // 필요 시 페이지 이동이나 폼 초기화 로직 추가
+        toast.dismiss(loadingToast) // 로딩 토스트 제거
+        sessionStorage.removeItem("requestType") // 데이터 정리
+        navigate("/success")
       }
     } catch (error) {
       console.error("EmailJS Error:", error)
-      alert(t("requestDetails.errorMessage") || "Failed to send request. Please try again.")
+      toast.dismiss(loadingToast)
+      toast.error(t("requestDetails.errorMessage") || "Failed to send request. Please try again.")
+    } finally {
+      setIsSending(false)
     }
   }
 

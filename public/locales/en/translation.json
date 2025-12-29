@@ -88,6 +88,13 @@
   },
   "requestDetails": {
     "title": "Request details",
+    "sending": "Sending...",
+    "errorMessage": "Failed to send request. Please try again.",
+    "success": {
+      "title": "Request Sent!",
+      "description": "Our concierge will review your request and contact you via email shortly.",
+      "button": "Back to Home"
+    },
     "email": {
       "label": "Your email address",
       "placeholder": "youremail@example.com",

@@ -88,6 +88,13 @@
   },
   "requestDetails": {
     "title": "请求详情",
+    "sending": "正在发送...",
+    "errorMessage": "发送失败，请稍后再试。",
+    "success": {
+      "title": "请求已发送！",
+      "description": "我们的礼宾人员将尽快审核您的需求，并通过电子邮件与您联系。",
+      "button": "回到首页"
+    },
     "email": {
       "label": "您的电子邮件地址",
       "placeholder": "youremail@example.com",

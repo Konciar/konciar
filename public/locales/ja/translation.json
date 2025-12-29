@@ -88,6 +88,13 @@
   },
   "requestDetails": {
     "title": "リクエスト詳細",
+    "sending": "送信中...",
+    "errorMessage": "送信に失敗しました。もう一度お試しください。",
+    "success": {
+      "title": "リクエスト送信完了！",
+      "description": "コンシェルジュが内容を確認し、まもなくメールにてご連絡いたします。",
+      "button": "ホームに戻る"
+    },
     "email": {
       "label": "メールアドレス",
       "placeholder": "youremail@example.com",
