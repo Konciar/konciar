@@ -102,16 +102,16 @@
     },
     "store": {
       "label": "Restaurant / Store name",
-      "placeholder": "e.g. Shilla Hotel"
+      "placeholder": "e.g. Myeongdong Kyoja"
     },
     "location": {
       "label": "Location or address",
-      "placeholder": "Search address (e.g. Hotel Shilla)"
+      "placeholder": "Enter restaurant or store name"
     },
     "delivery": {
       "label": "Delivery address (Floor, Room no.)",
       "detailLabel": "Delivery detail address",
-      "placeholder": "Search address (e.g. Hotel Shilla)",
+      "placeholder": "Enter hotel name or accommodation address",
       "detailPlaceholder": "e.g. Room 1205, 12th Floor"
     },
     "dateTime": {
@@ -128,7 +128,7 @@
     },
     "otherSpecifics": {
       "label": "Other specific questions or details",
-      "placeholder": "e.g. Do they have vegan options?"
+      "placeholder": "ex. Do they have vegan options?"
     },
     "description": {
       "label": "Please describe your request in detail",

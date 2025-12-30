@@ -102,16 +102,16 @@
     },
     "store": {
       "label": "餐厅 / 商店名称",
-      "placeholder": "例如：新罗酒店"
+      "placeholder": "例如：明洞饺子本店"
     },
     "location": {
       "label": "位置或地址",
-      "placeholder": "搜索地址（例如：新罗酒店）"
+      "placeholder": "请输入餐厅或商店名称"
     },
     "delivery": {
       "label": "送货地址（楼层、房号）",
       "detailLabel": "详细送货地址",
-      "placeholder": "搜索地址（例如：新罗酒店）",
+      "placeholder": "请输入酒店名称或住宿地址",
       "detailPlaceholder": "例如：1205室, 12楼"
     },
     "dateTime": {

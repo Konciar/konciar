@@ -102,16 +102,16 @@
     },
     "store": {
       "label": "レストラン・店舗名",
-      "placeholder": "例：新羅ホテル"
+      "placeholder": "例：明洞餃子本店"
     },
     "location": {
       "label": "場所または住所",
-      "placeholder": "住所を検索（例：新羅ホテル）"
+      "placeholder": "飲食店や店舗名を入力してください"
     },
     "delivery": {
       "label": "配送先住所（階、部屋番号）",
       "detailLabel": "配送先詳細住所",
-      "placeholder": "住所を検索（例：新羅ホテル）",
+      "placeholder": "ホテル名または宿泊先の住所を入力してください",
       "detailPlaceholder": "例：1205号室、12階"
     },
     "dateTime": {
