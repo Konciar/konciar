@@ -127,7 +127,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
           }}
         >
           {/* Email Section */}
-          <div className="flex flex-col gap-2">
+          <section className="flex flex-col gap-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <MdOutlineMail className="text-orange-500 text-lg" />
               {t("requestDetails.email.label")} <span className="text-red-500">*</span>
@@ -141,12 +141,12 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-orange-300 shadow-sm"
             />
             {isEmailInvalid && <p className="text-xs text-red-500 ml-1 mt-1 font-medium">{t("requestDetails.email.error")}</p>}
-          </div>
+          </section>
 
-          <div className="border-b border-gray-200"></div>
+          <hr className="border-b border-gray-200" />
 
           {/* Store Name Section */}
-          <div className="flex flex-col gap-2">
+          <section className="flex flex-col gap-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <MdOutlineStorefront className="text-green-500 text-lg" />
               {t("requestDetails.store.label")} <span className="text-red-500">*</span>
@@ -159,15 +159,17 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               placeholder={t("requestDetails.store.placeholder")}
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-green-300 shadow-sm"
             />
-          </div>
+          </section>
 
           {/* Store Location Section */}
-          <div className="flex flex-col gap-2">
-            <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+          <section className="flex flex-col gap-2">
+            <h2 className="sr-only">Restaurant / Store name</h2>
+            <label htmlFor="storeLocationByGoogleMap" className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <TbBrandGoogleMaps className="text-gray-400 text-lg" />
               {t("requestDetails.location.label")}
             </label>
             <Autocomplete
+              id="storeLocationByGoogleMap"
               onPlaceSelected={(place) => {
                 setForm((prev) => ({ ...prev, storeAddress: place.formatted_address || "" }))
               }}
@@ -178,19 +180,23 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               placeholder={t("requestDetails.location.placeholder")}
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-indigo-300 transition-all shadow-sm"
             />
-          </div>
+          </section>
 
-          <div className="border-b border-gray-200"></div>
+          <hr className="border-b border-gray-200" />
 
           {/* Delivery Address Section */}
           {requestType === "delivery" && (
-            <>
+            <section className="flex flex-col gap-6" aria-labelledby="delivery-address-header">
+              <h2 id="delivery-address-header" className="sr-only">
+                Delivery Information
+              </h2>
               <div className="flex flex-col gap-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <label htmlFor="deliveryAddressByGoogleMap" className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <MdOutlineHome className="text-indigo-500 text-lg" />
                   {t("requestDetails.delivery.label")}
                 </label>
                 <Autocomplete
+                  id="deliveryAddressByGoogleMap"
                   onPlaceSelected={(place) => {
                     setForm((prev) => ({ ...prev, deliveryAddress: place.formatted_address || "" }))
                   }}
@@ -204,12 +210,13 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               </div>
 
               <div className="flex flex-col gap-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <label htmlFor="deliveryDetailAddress" className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <MdOutlineHome className="text-gray-500 text-lg" />
                   {t("requestDetails.delivery.detailLabel")}
                 </label>
                 <input
                   type="text"
+                  id="deliveryDetailAddress"
                   name="deliveryDetailAddress"
                   value={form.deliveryDetailAddress}
                   onChange={handleInputChange}
@@ -218,20 +225,22 @@ const RequestDetailsPage = ({ t }: TOnly) => {
                 />
               </div>
 
-              <div className="border-b border-gray-200"></div>
-            </>
+              <hr className="border-b border-gray-200" />
+            </section>
           )}
 
           {/* Date & Time Section */}
           {requestType === "reservation" && (
-            <>
+            <section className="flex flex-col gap-8" aria-labelledby="date-time-header">
+              <h2 className="sr-only">Reservation Information</h2>
               <div className="flex flex-col gap-2">
-                <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                <label htmlFor="requestedDate" className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <MdCalendarToday className="text-blue-500 text-lg" />
                   {t("requestDetails.dateTime.label")} <span className="text-red-500">*</span>
                 </label>
                 <input
                   type="text"
+                  id="requestedDate"
                   name="requestedDate"
                   value={form.requestedDate}
                   onChange={handleInputChange}
@@ -240,14 +249,14 @@ const RequestDetailsPage = ({ t }: TOnly) => {
                 />
               </div>
 
-              <div className="border-b border-gray-200"></div>
-            </>
+              <hr className="border-b border-gray-200" />
+            </section>
           )}
 
           {/* Common Questions Section */}
-          <div className="flex flex-col gap-4">
-            <h3 className="text-sm font-medium text-gray-700">{t("requestDetails.commonQuestions.title")}</h3>
-            <div className="flex flex-col gap-3">
+          <fieldset className="flex flex-col gap-4">
+            <legend className="text-sm font-medium text-gray-700 mb-3">{t("requestDetails.commonQuestions.title")}</legend>
+            <ul className="flex flex-col gap-3 list-none">
               {[
                 { id: "reservation", label: t("requestDetails.commonQuestions.reservation") },
                 { id: "takeout", label: t("requestDetails.commonQuestions.takeout") },
@@ -255,26 +264,29 @@ const RequestDetailsPage = ({ t }: TOnly) => {
                 { id: "parking", label: t("requestDetails.commonQuestions.parking") },
                 { id: "pets", label: t("requestDetails.commonQuestions.pets") },
               ].map((item) => (
-                <label
-                  key={item.id}
-                  className="flex items-center gap-3 p-4 border border-gray-100 rounded-xl bg-gray-50 cursor-pointer hover:bg-white hover:border-indigo-200 transition-all shadow-sm"
-                >
-                  <input
-                    type="checkbox"
-                    checked={form.commonQuestions[item.id as keyof typeof form.commonQuestions]}
-                    onChange={() => handleCheckboxChange(item.id as keyof typeof form.commonQuestions)}
-                    className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                  <span className="text-sm text-gray-700 font-medium">{item.label}</span>
-                </label>
+                <li key={item.id} className="p-4 border border-gray-100 rounded-xl bg-gray-50 shadow-sm">
+                  <label htmlFor={item.id} className="flex items-center gap-3">
+                    <input
+                      id={item.id}
+                      type="checkbox"
+                      checked={form.commonQuestions[item.id as keyof typeof form.commonQuestions]}
+                      onChange={() => handleCheckboxChange(item.id as keyof typeof form.commonQuestions)}
+                      className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                    />
+                    <span className="text-sm text-gray-700 font-medium">{item.label}</span>
+                  </label>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
+          </fieldset>
 
           {/* Other Specifics Section */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">{t("requestDetails.otherSpecifics.label")}</label>
+          <section className="flex flex-col gap-2">
+            <label htmlFor="specificQuestion" className="text-sm font-medium text-gray-700">
+              {t("requestDetails.otherSpecifics.label")}
+            </label>
             <input
+              id="specificQuestion"
               type="text"
               name="otherSpecifics"
               value={form.otherSpecifics}
@@ -282,12 +294,13 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               placeholder={t("requestDetails.otherSpecifics.placeholder")}
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-indigo-300 shadow-sm transition-all"
             />
-          </div>
+          </section>
 
           {/* Description Section */}
-          <div className="flex flex-col gap-2">
-            <label className="text-sm font-medium text-gray-700">{t("requestDetails.description.label")}</label>
+          <section className="flex flex-col gap-2">
+            <label htmlFor="description" className="text-sm font-medium text-gray-700">{t("requestDetails.description.label")}</label>
             <textarea
+              id="description"
               name="description"
               rows={6}
               value={form.description}
@@ -296,7 +309,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-2xl outline-none focus:border-indigo-400 focus:bg-white shadow-sm transition-all resize-none text-sm leading-relaxed"
             />
             <p className="text-[11px] text-gray-400 mt-1 italic">{t("requestDetails.description.example")}</p>
-          </div>
+          </section>
 
           <div className="border-b border-gray-200"></div>
 
