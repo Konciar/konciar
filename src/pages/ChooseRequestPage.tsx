@@ -37,16 +37,6 @@ const REQUEST_OPTIONS = [
     },
   },
   {
-    key: "info",
-    icon: <IoInformationOutline />,
-    styles: {
-      activeBorder: "border-purple-400",
-      activeBg: "bg-purple-50",
-      iconBg: "bg-purple-50",
-      iconColor: "text-purple-500",
-    },
-  },
-  {
     key: "hospital",
     icon: <IoMedicalOutline />,
     styles: {
@@ -54,6 +44,16 @@ const REQUEST_OPTIONS = [
       activeBg: "bg-green-50",
       iconBg: "bg-green-50",
       iconColor: "text-green-500",
+    },
+  },
+  {
+    key: "info",
+    icon: <IoInformationOutline />,
+    styles: {
+      activeBorder: "border-purple-400",
+      activeBg: "bg-purple-50",
+      iconBg: "bg-purple-50",
+      iconColor: "text-purple-500",
     },
   },
 ]
@@ -101,7 +101,15 @@ const ChooseRequestPage = ({ t }: TOnly) => {
                   `}
                 >
                   {/* 실제 라디오 버튼 (시각적으로 숨김) */}
-                  <input type="radio" name="request-type" value={item.key} checked={isSelected} onChange={() => setSelected(item.key)} className="sr-only" aria-describedby={`${item.key}-descreption`} />
+                  <input
+                    type="radio"
+                    name="request-type"
+                    value={item.key}
+                    checked={isSelected}
+                    onChange={() => setSelected(item.key)}
+                    className="sr-only"
+                    aria-describedby={`${item.key}-descreption`}
+                  />
 
                   {/* 왼쪽 아이콘 박스 */}
                   <div

@@ -1,5 +1,4 @@
 import { useEffect, useState, type ChangeEvent } from "react"
-import Autocomplete from "react-google-autocomplete"
 import Header from "../components/Header"
 import { MdOutlineMail, MdOutlineStorefront, MdOutlineHome, MdCalendarToday } from "react-icons/md"
 import { TbBrandGoogleMaps } from "react-icons/tb"
@@ -8,6 +7,7 @@ import { loadGoogleMaps } from "../components/GoogleMapsLoader"
 import emailjs from "@emailjs/browser"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
+import { useGoogleAutocomplete } from "../hooks/useGoogleAutoComplete"
 
 const RequestDetailsPage = ({ t }: TOnly) => {
   const [requestType, setRequestType] = useState<string>("")
@@ -30,6 +30,35 @@ const RequestDetailsPage = ({ t }: TOnly) => {
   })
   const [isSending, setIsSending] = useState<boolean>(false)
   const navigate = useNavigate()
+
+  // Google Places Autocomplete 설정
+  const storeAddressRef = useGoogleAutocomplete({
+    onPlaceSelected: (place) => {
+      setForm((prev) => ({ ...prev, storeAddress: place.formatted_address || "" }))
+
+      if (storeAddressRef.current) {
+        storeAddressRef.current.value = place.formatted_address || ""
+      }
+    },
+    options: {
+      types: ["geocode", "establishment"],
+      componentRestrictions: { country: "kr" },
+    },
+  })
+
+  const deliveryAddressRef = useGoogleAutocomplete({
+    onPlaceSelected: (place) => {
+      setForm((prev) => ({ ...prev, deliveryAddress: place.formatted_address || "" }))
+
+      if (deliveryAddressRef.current) {
+        deliveryAddressRef.current.value = place.formatted_address || ""
+      }
+    },
+    options: {
+      types: ["geocode", "establishment"],
+      componentRestrictions: { country: "kr" },
+    },
+  })
 
   useEffect(() => {
     setRequestType(sessionStorage.getItem("requestType") || "")
@@ -168,17 +197,14 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               <TbBrandGoogleMaps className="text-gray-400 text-lg" />
               {t("requestDetails.location.label")}
             </label>
-            <Autocomplete
+            <input
+              ref={storeAddressRef}
               id="storeLocationByGoogleMap"
-              onPlaceSelected={(place) => {
-                setForm((prev) => ({ ...prev, storeAddress: place.formatted_address || "" }))
-              }}
-              options={{
-                types: ["geocode", "establishment"],
-                componentRestrictions: { country: "kr" },
-              }}
+              type="text"
               placeholder={t("requestDetails.location.placeholder")}
               className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-indigo-300 transition-all shadow-sm"
+              autoComplete="off"
+              defaultValue={form.storeAddress}
             />
           </section>
 
@@ -193,19 +219,16 @@ const RequestDetailsPage = ({ t }: TOnly) => {
               <div className="flex flex-col gap-2">
                 <label htmlFor="deliveryAddressByGoogleMap" className="flex items-center gap-2 text-sm font-medium text-gray-700">
                   <MdOutlineHome className="text-indigo-500 text-lg" />
-                  {t("requestDetails.delivery.label")}
+                  {t("requestDetails.delivery.label")} <span className="text-red-500">*</span>
                 </label>
-                <Autocomplete
+                <input
+                  ref={deliveryAddressRef}
                   id="deliveryAddressByGoogleMap"
-                  onPlaceSelected={(place) => {
-                    setForm((prev) => ({ ...prev, deliveryAddress: place.formatted_address || "" }))
-                  }}
-                  options={{
-                    types: ["geocode", "establishment"],
-                    componentRestrictions: { country: "kr" },
-                  }}
+                  type="text"
                   placeholder={t("requestDetails.delivery.placeholder")}
                   className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-indigo-300 transition-all shadow-sm"
+                  autoComplete="off"
+                  defaultValue={form.deliveryAddress}
                 />
               </div>
 
@@ -298,7 +321,9 @@ const RequestDetailsPage = ({ t }: TOnly) => {
 
           {/* Description Section */}
           <section className="flex flex-col gap-2">
-            <label htmlFor="description" className="text-sm font-medium text-gray-700">{t("requestDetails.description.label")}</label>
+            <label htmlFor="description" className="text-sm font-medium text-gray-700">
+              {t("requestDetails.description.label")}
+            </label>
             <textarea
               id="description"
               name="description"
