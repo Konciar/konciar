@@ -21,11 +21,11 @@ const SuccessPage = ({ t }: TOnly) => {
   }
 
   const handleReviewClick = () => {
-    let googleFormUrl = import.meta.env.VITE_SURVEY_EN_URL
+    let googleFormUrl = "https://forms.gle/ch6BwsqxuLPXNPct8"
     if (localStorage.getItem("i18nextLng") === "zh") {
-      googleFormUrl = import.meta.env.VITE_SURVEY_ZH_URL
+      googleFormUrl = "https://forms.gle/YrdbGQM31Ne9skAc9"
     } else if (localStorage.getItem("i18nextLng") === "ja") {
-      googleFormUrl = import.meta.env.VITE_SURVEY_JA_URL
+      googleFormUrl = "https://forms.gle/kbBdVh4JD42sU75S8"
     }
     window.open(googleFormUrl, "_blank")
     localStorage.setItem("hasParticipatedReview", "true")
