@@ -102,6 +102,7 @@
     },
     "store": {
       "label": "Restaurant / Store name",
+      "hospital": "Hospital / Clinic name",
       "placeholder": "e.g. Myeongdong Kyoja"
     },
     "location": {
@@ -147,7 +148,7 @@
       "reservation": "Restaurant Reservation",
       "takeout": "Takeout Order",
       "delivery": "Delivery Order",
-      "hospital": "Hospital Appointment",
+      "hospital": "Doctor's Appointment",
       "info": "Information Check"
     }
   },
@@ -156,5 +157,15 @@
     "description": "We are testing this service to prepare for our startup launch. We’d be truly grateful for your feedback—both criticism and positive responses are incredibly valuable to us.",
     "button": "Take a 30-sec Survey",
     "close": "Maybe later"
+  },
+  "reservation": {
+    "title": "Select Reservation Info",
+    "date": "Select Date",
+    "time": "Select Time",
+    "people": "Select Guests",
+    "numbers": "Person(s)",
+    "hour": "hr",
+    "minute": "min",
+    "select": "Confirm"
   }
 }

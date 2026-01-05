@@ -8,6 +8,8 @@ import emailjs from "@emailjs/browser"
 import { useNavigate } from "react-router-dom"
 import toast from "react-hot-toast"
 import { useGoogleAutocomplete } from "../hooks/useGoogleAutoComplete"
+import { format } from "date-fns"
+import BookingPickerDrawer from "../components/BookingPickerDrawer"
 
 const RequestDetailsPage = ({ t }: TOnly) => {
   const [requestType, setRequestType] = useState<string>("")
@@ -18,6 +20,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
     deliveryAddress: "",
     deliveryDetailAddress: "",
     requestedDate: "",
+    guests: 1,
     alternativeTime: "",
     otherSpecifics: "",
     description: "",
@@ -30,6 +33,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
     },
   })
   const [isSending, setIsSending] = useState<boolean>(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false)
   const navigate = useNavigate()
 
   // Google Places Autocomplete 설정
@@ -103,6 +107,16 @@ const RequestDetailsPage = ({ t }: TOnly) => {
     }))
   }
 
+  const handleBookingConfirm = (data: { date: Date | null; guests: number }) => {
+    if (data.date) {
+      setForm((prev) => ({
+        ...prev,
+        requestedDate: format(data.date as Date, "yyyy.MM.dd HH:mm"),
+        guests: data.guests,
+      }))
+    }
+  }
+
   const handleSubmit = async () => {
     if (!isFormValid() || isSending) return
     setIsSending(true)
@@ -122,6 +136,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
       store_address: form.storeAddress || "None",
       delivery_info: requestType === "delivery" ? `${form.deliveryAddress} ${form.deliveryDetailAddress}`.trim() || "None" : "N/A",
       requested_date: form.requestedDate || "None",
+      guests: form.guests.toString(),
       alternative_time: form.alternativeTime || "None",
       check_list: selectedQuestions || "None",
       other_questions: form.otherSpecifics || "None",
@@ -180,7 +195,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
           <section className="flex flex-col gap-2">
             <label className="flex items-center gap-2 text-sm font-medium text-gray-700">
               <MdOutlineStorefront className="text-green-500 text-lg" />
-              {t("requestDetails.store.label")} <span className="text-red-500">*</span>
+              {requestType === "hospital" ? t("requestDetails.store.hospital") : t("requestDetails.store.label")} <span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -255,44 +270,46 @@ const RequestDetailsPage = ({ t }: TOnly) => {
           )}
 
           {/* Date & Time Section */}
-          {requestType === "reservation" && (
-            <section className="flex flex-col gap-8" aria-labelledby="date-time-header">
-              <h2 className="sr-only">Reservation Information</h2>
-              <div className="flex flex-col gap-2">
-                <label htmlFor="requestedDate" className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                  <MdCalendarToday className="text-blue-500 text-lg" />
-                  {t("requestDetails.dateTime.label")} <span className="text-red-500">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="requestedDate"
-                  name="requestedDate"
-                  value={form.requestedDate}
-                  onChange={handleInputChange}
-                  placeholder={t("requestDetails.dateTime.placeholder")}
-                  className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-blue-300 shadow-sm"
-                />
-              </div>
+          {requestType === "reservation" ||
+            (requestType === "hospital" && (
+              <section className="flex flex-col gap-8" aria-labelledby="date-time-header">
+                <h2 className="sr-only">Reservation Information</h2>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="requestedDate" className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                    <MdCalendarToday className="text-blue-500 text-lg" />
+                    {t("requestDetails.dateTime.label")} <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="requestedDate"
+                    name="requestedDate"
+                    value={form.requestedDate ? `${form.requestedDate} ${form.guests}${t("reservation.numbers") || "ppl"}` : ""}
+                    readOnly
+                    onClick={() => setIsDrawerOpen(true)}
+                    placeholder={t("requestDetails.dateTime.placeholder")}
+                    className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-blue-300 shadow-sm"
+                  />
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="alternativeTime" className="flex items-center gap-2 text-sm font-medium text-gray-700">
-                  <MdCalendarToday className="text-blue-300 text-lg" />
-                  {t("requestDetails.alternativeTime.label") || "alternativeTime Time & Days"}
-                </label>
-                <input
-                  type="text"
-                  id="alternativeTime"
-                  name="alternativeTime"
-                  value={form.alternativeTime}
-                  onChange={handleInputChange}
-                  placeholder={t("requestDetails.alternativeTime.placeholder") || "e.g. Weekdays after 6 PM, or Weekends"}
-                  className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-blue-300 shadow-sm"
-                />
-              </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="alternativeTime" className="flex items-center gap-2 text-sm font-medium text-gray-700">
+                    <MdCalendarToday className="text-blue-300 text-lg" />
+                    {t("requestDetails.alternativeTime.label") || "alternativeTime Time & Days"}
+                  </label>
+                  <input
+                    type="text"
+                    id="alternativeTime"
+                    name="alternativeTime"
+                    value={form.alternativeTime}
+                    onChange={handleInputChange}
+                    placeholder={t("requestDetails.alternativeTime.placeholder") || "e.g. Weekdays after 6 PM, or Weekends"}
+                    className="w-full p-4 bg-gray-50 border border-gray-100 rounded-xl outline-none focus:border-blue-300 shadow-sm"
+                  />
+                </div>
 
-              <hr className="border-b border-gray-200" />
-            </section>
-          )}
+                <hr className="border-b border-gray-200" />
+              </section>
+            ))}
 
           {/* Common Questions Section */}
           <fieldset className="flex flex-col gap-4">
@@ -357,7 +374,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
           <div className="border-b border-gray-200"></div>
 
           {/* Footer Section */}
-          <footer className="mt-auto p-6 justify-center items-center flex flex-col gap-2">
+          <footer className="mt-auto py-6 justify-center items-center flex flex-col gap-2">
             <button
               type="submit"
               disabled={!isFormValid() || isSending}
@@ -370,6 +387,7 @@ const RequestDetailsPage = ({ t }: TOnly) => {
           </footer>
         </form>
       </main>
+      <BookingPickerDrawer isOpen={isDrawerOpen} setIsOpen={setIsDrawerOpen} onConfirm={handleBookingConfirm} initialData={{ guests: form.guests }} />
     </div>
   )
 }

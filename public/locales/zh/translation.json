@@ -102,6 +102,7 @@
     },
     "store": {
       "label": "餐厅 / 商店名称",
+      "hospital": "医院 / 诊所名称",
       "placeholder": "例如：明洞饺子本店"
     },
     "location": {
@@ -116,7 +117,7 @@
     },
     "dateTime": {
       "label": "请求日期和时间",
-      "placeholder": "例如：12月25日 晚上7:00, 2人"
+      "placeholder": "例如：12月25日 晚上7:00, 2名"
     },
     "alternativeTime": {
       "label": "其他方便的时间（请输入其他可以的时间）",
@@ -147,7 +148,7 @@
       "reservation": "餐厅订座",
       "takeout": "外带自取",
       "delivery": "外卖配送",
-      "hospital": "医院挂号",
+      "hospital": "预约医生",
       "info": "信息查询"
     }
   },
@@ -156,5 +157,15 @@
     "description": "我们正在测试此服务，为创业做准备。如果您能抽出一点时间分享您的反馈，我们将不胜感激。无论是批评还是肯定，对我们来说都非常有价值。",
     "button": "参与 30 秒问卷",
     "close": "以后再说"
+  },
+  "reservation": {
+    "title": "选择预约信息",
+    "date": "选择日期",
+    "time": "选择时间",
+    "people": "选择人数",
+    "numbers": "名",
+    "hour": "时",
+    "minute": "分",
+    "select": "确认"
   }
 }
