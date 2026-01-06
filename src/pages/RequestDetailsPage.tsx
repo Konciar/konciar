@@ -321,20 +321,35 @@ const RequestDetailsPage = ({ t }: TOnly) => {
                 { id: "delivery", label: t("requestDetails.commonQuestions.delivery") },
                 { id: "parking", label: t("requestDetails.commonQuestions.parking") },
                 { id: "pets", label: t("requestDetails.commonQuestions.pets") },
-              ].map((item) => (
-                <li key={item.id} className="p-4 border border-gray-100 rounded-xl bg-gray-50 shadow-sm">
-                  <label htmlFor={item.id} className="flex items-center gap-3">
-                    <input
-                      id={item.id}
-                      type="checkbox"
-                      checked={form.commonQuestions[item.id as keyof typeof form.commonQuestions]}
-                      onChange={() => handleCheckboxChange(item.id as keyof typeof form.commonQuestions)}
-                      className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                    />
-                    <span className="text-sm text-gray-700 font-medium">{item.label}</span>
-                  </label>
-                </li>
-              ))}
+              ]
+                .filter((item) => {
+                  // 각 타입별로 보여줄 ID 정의
+                  const visibleFields: Record<string, string[]> = {
+                    hospital: ["parking"],
+                    reservation: ["reservation", "parking", "pets"],
+                    delivery: ["takeout", "delivery"],
+                  }
+
+                  // 현재 requestType에 해당하는 설정 가져오기 (없으면 전체 노출)
+                  const allowedIds = visibleFields[requestType]
+
+                  // 설정이 있으면 포함 여부 확인, 설정이 없으면(기본값) 모든 항목 노출
+                  return allowedIds ? allowedIds.includes(item.id) : true
+                })
+                .map((item) => (
+                  <li key={item.id} className="p-4 border border-gray-100 rounded-xl bg-gray-50 shadow-sm">
+                    <label htmlFor={item.id} className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        id={item.id}
+                        type="checkbox"
+                        checked={form.commonQuestions[item.id as keyof typeof form.commonQuestions]}
+                        onChange={() => handleCheckboxChange(item.id as keyof typeof form.commonQuestions)}
+                        className="w-5 h-5 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                      />
+                      <span className="text-sm text-gray-700 font-medium">{item.label}</span>
+                    </label>
+                  </li>
+                ))}
             </ul>
           </fieldset>
 
