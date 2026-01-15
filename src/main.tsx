@@ -9,7 +9,7 @@ import ScrollToTop from "./components/ScrollToTop.ts"
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className="w-full h-screen bg-white" />}>
         <ScrollToTop />
         <App />
       </Suspense>
